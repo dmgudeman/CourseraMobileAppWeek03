@@ -16,9 +16,7 @@ angular.module('conFusion.services', ['ngResource'])
       }
 
     ];
-
     this.getDishes = function(){
-
       return $resource(baseURL+"dishes/:id",null,  {'update':{method:'PUT' }});
 
     };
@@ -28,8 +26,6 @@ angular.module('conFusion.services', ['ngResource'])
     this.getPromotion = function() {
       return   $resource(baseURL+"promotions/:id");;
     }
-
-
   }])
 
   .factory('corporateFactory', ['$resource', 'baseURL', function($resource,baseURL) {
@@ -40,10 +36,26 @@ angular.module('conFusion.services', ['ngResource'])
   }])
 
   .factory('feedbackFactory', ['$resource', 'baseURL', function($resource,baseURL) {
-
-
     return $resource(baseURL+"feedback/:id");
-
   }])
+
+  // the $resource and the baseURL are to be used for persistent storage functions
+  .factory('favoriteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+    // this is to be returned
+    var favFac = {};
+    // this is an array to keep track of all the favorites, tracked by id
+    var favorites = [];
+
+    favFac.addToFavorites = function (index) {
+      for (var i = 0; i < favorites.length; i++) {
+        if (favorites[i].id == index)
+        return;
+      }
+      // this is where the array is defined as storing the favorites as "id"
+      favorites.push({id:index});
+    }
+    return favFac;
+  }])
+
 
 ;

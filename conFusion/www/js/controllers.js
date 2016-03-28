@@ -9,8 +9,9 @@ angular.module('conFusion.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  // Form data for the login modal
-  $scope.loginData = {};
+  // Form data for the login modal and reservation modal
+ $scope.loginData = {};
+ $scope.reservation = {};
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -33,15 +34,44 @@ angular.module('conFusion.controllers', [])
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
-    // Simulate a login delay. Remove this and replace with your login
+    // SIMULATION ONLY a login delay. Remove this and replace with your login
     // code if using a login system
     $timeout(function() {
       $scope.closeLogin();
     }, 1000);
   };
+
+    //*********************** Activating the Reserve Modal ******************
+    $ionicModal.fromTemplateUrl('templates/reserve.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.reserveForm = modal;
+    });
+
+    // Triggered in the reserve modal to close it
+    $scope.closeReserve = function() {
+      $scope.reserveForm.hide();
+    };
+
+    // Open the reserve modal
+    $scope.reserve = function() {
+      $scope.reserveForm.show();
+    };
+
+    // Perform the serve action when the user submits the reserve form
+    $scope.doReserve = function() {
+      console.log('Doing Reservation', $scope.reservation);
+
+      // SIMULATION ONLY a reservation delay. Remove this and replace with your reservation
+      // code if using a reservation
+      $timeout(function() {
+        $scope.closeReserve();
+      }, 1000);
+    }
 })
 
-  .controller('MenuController', ['$scope', 'menuFactory', 'baseURL', function($scope, menuFactory, baseURL) {
+  .controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate',
+    function($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
 
     $scope.baseURL = baseURL;
     $scope.tab = 1;
@@ -84,6 +114,14 @@ angular.module('conFusion.controllers', [])
     $scope.toggleDetails = function() {
       $scope.showDetails = !$scope.showDetails;
     };
+
+    $scope.addFavorite = function(index) {
+      console.log("index is " + index);
+
+      favoriteFactory.addToFavorites(index);
+      // the option button is closed by the ionicListDelegate service to get rid of it once it has been used
+      $ionicListDelegate.closeOptionButtons();
+    }
   }])
 
   .controller('ContactController', ['$scope', function($scope) {
