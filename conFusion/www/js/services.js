@@ -28,11 +28,12 @@ angular.module('conFusion.services', ['ngResource'])
   }])
 
   // the $resource and the baseURL are to be used for persistent storage functions
-  .factory('favoriteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+  .factory('favoriteFactory', ['$resource', 'baseURL', '$localStorage', function ($resource, baseURL, $localStorage) {
     // this is to be returned
     var favFac = {};
     // this is an array to keep track of all the favorites, tracked by id
-    var favorites = [];
+    var favorites = $localStorage.getObject('favoriteData', '[]');
+
 
     favFac.addToFavorites = function (index) {
       for (var i = 0; i < favorites.length; i++) {
@@ -40,7 +41,9 @@ angular.module('conFusion.services', ['ngResource'])
         return;
       }
       // this is where the array is defined as storing the favorites as "id"
+
       favorites.push({id:index});
+      $localStorage.storeObject('favoriteData', favorites);
     }
 
     favFac.deleteFromFavorites = function (index) {

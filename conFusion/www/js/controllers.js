@@ -11,6 +11,7 @@ angular.module('conFusion.controllers', [])
 
   // Form data for the login modal and reservation modal
  $scope.loginData = $localStorage.getObject('userinfo', '{}');
+ //   $scope.favoritesData = $localStorage.getObject('favorites', {});
  $scope.reservation = {};
 
   // Create the login modal that we will use later
@@ -113,6 +114,7 @@ angular.module('conFusion.controllers', [])
 
     $scope.addFavorite = function(index) {
       console.log("index is " + index);
+
 
       favoriteFactory.addToFavorites(index);
       // the option button is closed by the ionicListDelegate service to get rid of it once it has been used
@@ -220,14 +222,14 @@ angular.module('conFusion.controllers', [])
       $scope.favorites = favorites;
       $scope.dishes = dishes;
 
-      $ionicLoading.show({
-        template: '<ion-spinner></ion-spinner> Loading...'
-      });
+     // $ionicLoading.show({
+     //   template: '<ion-spinner></ion-spinner> Loading...'
+     // });
 
 
     $scope.favorites = favoriteFactory.getFavorites();
 
-    $scope.dishes = menuFactory.query(
+ /*   $scope.dishes = menuFactory.query(
       function (response) {
         $scope.dishes = response;
         $timeout(function () {
@@ -241,7 +243,8 @@ angular.module('conFusion.controllers', [])
 
         }, 1000);
       });
-    console.log($scope.dishes, $scope.favorites);
+      */
+    //console.log($scope.dishes, $scope.favorites);
 
     $scope.toggleDelete = function () {
       $scope.shouldShowDelete = !$scope.shouldShowDelete;
