@@ -199,7 +199,6 @@ angular.module('conFusion.controllers', [])
 
 
     $scope.baseURL = baseURL;
-   // $scope.leader = corporateFactory.get({id:3});
     $scope.leader = leader;
     $scope.showDish = false;
     $scope.message="Loading ...";
@@ -211,10 +210,6 @@ angular.module('conFusion.controllers', [])
   .controller('AboutController', ['$scope', 'leaders', 'baseURL', function($scope, leaders, baseURL) {
     $scope.baseURL = baseURL;
     $scope.leaders = leaders;
-  //  $scope.leader = corporateFactory.get({id:3});
-    console.log("This fired in AboutController");
-    console.log($scope.leaders);
-
   }])
 
   .controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout',
