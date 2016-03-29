@@ -22,14 +22,17 @@
         </div>
       </div>
     </div>
-    <div class="list list-inset">
+    <ul class="list list-inset">
+      <li ng-repeat=" leader in leaders">
+
       <div class="item item-thumbnail-left item-text-wrap">
         <img ng-src="{{baseURL+leader.image}}" alt="{{leader.name}}">
         <h2>{{leader.name}}</h2>
         <h4>{{leader.designation}}</h4>
         <p>{{leader.description}}</p>
-      </div>
     </div>
+        </li>
+      </ul>
     </div>
   </ion-content>
 </ion-view>
