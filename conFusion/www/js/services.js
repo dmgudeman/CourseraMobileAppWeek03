@@ -31,7 +31,8 @@ angular.module('conFusion.services', ['ngResource'])
   .factory('corporateFactory', ['$resource', 'baseURL', function($resource,baseURL) {
 
  //   console.log("This is in the corporate factory. leadership = ");
-   return $resource(baseURL+"leadership/:id");
+   //
+    return $resource(baseURL+"leadership/:id");
 
   }])
 
@@ -54,8 +55,21 @@ angular.module('conFusion.services', ['ngResource'])
       // this is where the array is defined as storing the favorites as "id"
       favorites.push({id:index});
     }
-    return favFac;
-  }])
 
+    favFac.deleteFromFavorites = function (index) {
+      for (var i = 0; i < favorites.length; i++) {
+        if (favorites[i].id == index) {
+          favorites.splice(i, 1);
+        }
+      }
+    }
+
+    favFac.getFavorites = function () {
+      return favorites;
+    };
+
+    return favFac;
+
+  }])
 
 ;
